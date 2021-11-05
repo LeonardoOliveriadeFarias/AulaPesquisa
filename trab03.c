@@ -3,6 +3,7 @@
 #include <time.h>
 #include <conio.h>
 #include <windows.h>
+#include <string.h>
 
 void bubble_sort(int a[], int n) {
    int i = 0, j = 0, tmp;
@@ -68,7 +69,8 @@ void quick_sort(int *a, int left, int right) {
 
 int main(){
     
-    int opcao = -1, size, vet[9999];
+    int opcao = -1, size, vet[9999], vetData[9999][3];
+    char vetString[9999][15];
     printf("Gerando arquivo: \n1 - Numeros aleatorios\n2 - Inserir numeros\n3 - Inserir datas\n4 - Inserir palavras\n");
     scanf("%i", &opcao);
     switch (opcao){
@@ -82,18 +84,76 @@ int main(){
         system("cls");
         printf("Gerando vetor...\n");
         
-        printf("Vetor gerado: ");
+        printf("Vetor: \n");
         for(int i = 0; i<size; i++){ printf("%i,", vet[i]);}
         printf("\n");
         break;
     
     case 2:
+        printf("Qual o tamanho do vetor que deseja?");
+        scanf("%d", &size);
+        for(int i = 0; i<size; i++){  
+            int aux;
+            printf("Digite o %i numero: ", i);
+            scanf("%i", &aux);
+            vet[i] = aux; 
+        }
+
+        printf("Vetor: \n");
+        for(int i = 0; i<size; i++){
+                printf("%d ", vet[i]);
+            }
+        printf("\n");
         break;
     
     case 3:
+        printf("Qual o tamanho do vetor que deseja? ");
+        scanf("%d", &size);
+        int dia, mes, ano;
+        for(int i = 0; i<size; i++){
+
+            printf("Data %i\n", i);
+          
+            for(int j = 2; j>-1; j--){  
+                if(j==0){
+                    printf("Digite o ano: ");
+                    scanf("%d", &vetData[i][j]);
+                }
+
+                else if(j==1){
+                    printf("Digite o mes: ");
+                    scanf("%d", &vetData[i][j]);                    
+                }
+
+                else if(j==2){
+                    printf("Digite o dia: ");
+                    scanf("%d", &vetData[i][j]);                    
+                }
+            }
+        }
+
+        printf("Datas: \n");
+        for(int i = 0; i<size; i++){
+            for(int j = 2; j>-1; j--){
+                printf("%d ", vetData[i][j]);
+            }
+            printf("\n");
+        }
+
         break;
     
     case 4:
+        printf("Qual o tamanho do vetor que deseja? ");
+        scanf("%d", &size);
+        for(int i = 0; i<size; i++){  
+            printf("Digite a %i palavra: ", i);
+            scanf("%s", &vetString[i]); 
+        }
+        printf("Strings: \n");
+        for(int i = 0; i<size; i++){
+                    printf("%s ", vetString[i]);
+            }
+        printf("\n");
         break;
     
     default:
