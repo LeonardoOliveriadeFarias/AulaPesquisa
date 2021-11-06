@@ -161,7 +161,7 @@ int main(){
         break;
     }
     if(opcao > 4 || opcao < 1){  printf("Encerrando programa..."); }
-    else{
+    else if(opcao == 1 || opcao == 2){
         clock_t timer;
         printf("Selecione Ordenacao:\n1 - Bubble Sort\n2 - Insertion Sort\n3 - Quick Sort\n");
         scanf("%i", &opcao);
@@ -205,7 +205,22 @@ int main(){
             break;
         }
         if(opcao > 4 || opcao < 1){  printf("Encerrando programa..."); }
-
-
+    
+    }else if(opcao == 3){
+        clock_t timer;
+        printf("Ordenando datas");
+        timer = clock();
+        //algoritmo de ordenação de matrizes
+        timer = clock() - timer;
+        //printf ordenado
+        printf("Tempo para a ordenacao: %f", ((double)timer)/((CLOCKS_PER_SEC/1000)));
+    }else if(opcao == 4){
+        clock_t timer;
+        printf("Ordenando Strings");
+        timer = clock();
+        //algoritmo de ordenação de Strings
+        timer = clock() - timer;
+        //printf ordenado
+        printf("Tempo para a ordenacao: %f", ((double)timer)/((CLOCKS_PER_SEC/1000)));
     }
 }
