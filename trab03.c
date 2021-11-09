@@ -65,65 +65,24 @@ void quick_sort(int *a, int left, int right) {
     }
 }
 
-
-void ordenarDatas( vetData[ 9999 ], size ) {
-  for (int i = 0; i < size; i++) {
-    char dataA[8];
-    char dataB[8];
-
-    vetData[ i ]->data[ 0 ] = dataA[ 0 ];
-    vetData[ i ]->data[ 1 ] = dataA[ 1 ];
-    vetData[ i ]->data[ 3 ] = dataA[ 3 ];
-    vetData[ i ]->data[ 4 ] = dataA[ 4 ];
-    vetData[ i ]->data[ 6 ] = dataA[ 6 ];
-    vetData[ i ]->data[ 7 ] = dataA[ 7 ];
-    vetData[ i ]->data[ 8 ] = dataA[ 8 ];
-    vetData[ i ]->data[ 9 ] = dataA[ 9 ];
-
-    int numA = strtol( dataA, NULL, 10 );
-
-    vetData[i + 1]->data[ 0 ] = dataB[ 0 ];
-    vetData[i + 1]->data[ 1 ] = dataB[ 1 ];
-    vetData[i + 1]->data[ 3 ] = dataB[ 3 ];
-    vetData[i + 1]->data[ 4 ] = dataB[ 4 ];
-    vetData[i + 1]->data[ 6 ] = dataB[ 6 ];
-    vetData[i + 1]->data[ 7 ] = dataB[ 7 ];
-    vetData[i + 1]->data[ 8 ] = dataB[ 8 ];
-    vetData[i + 1]->data[ 9 ] = dataB[ 9 ];
-
-    int numB = strtol( dataB, NULL, 10 );
-
-    char tmp[ 9999 ];
-
-    if ( numA < numB ) {  
-      tmp[ i ] = vetData[ i ];
-      vetData[ i ] = vetData[ i + 1 ];
-      vetData[ i + 1 ] = temp[ i ];
-      i = 0;
-    }
-  }
-}
-
-void ordenaStrings( vetString[9999], size ) {
-  char aux[9999];
-  int compareValue;
-
-  for ( int i = 0; i < size; i++ ) {
-    compareValue = strcmp( vetString[ i ], vetString[i + 1] );
-
-    if ( compareValue > 0 ) {      
-      strcpy( aux, vetString[ i ] );
-      strcpy( vetString[ i ], vetString[ i + 1 ] );
-      strcpy( vetString[ i + 1 ], aux );
-      i = 0;
-    }
-  }
+void ordenaDatas(long a[], int n) {
+   int i = 0, j = 0, tmp;
+   for (i = 0; i < n; i++) {   
+       for (j = 0; j < n - i - 1; j++) {            
+            if (a[j] > a[j + 1]) {  
+               tmp = a[j];
+               a[j] = a[j + 1];
+               a[j + 1] = tmp;
+           }
+       }
+   }
 }
 
 
 int main(){
     
-    int opcao = -1, size, vet[9999], vetData[9999];
+    int opcao = -1, size, vet[9999];
+    long vetData[9999];
     char vetString[9999][15];
     printf("Gerando arquivo: \n1 - Numeros aleatorios\n2 - Inserir numeros\n3 - Inserir datas\n4 - Inserir palavras\n");
     scanf("%i", &opcao);
@@ -164,18 +123,14 @@ int main(){
         printf("Qual o tamanho do vetor que deseja? ");
         scanf("%d", &size);
 
-        char data[10];
-
         for(int i = 0; i<size; i++){
-            printf("Digite a data desejada (DD/MM/YYYY): ");
-            scanf("%s", &data[i]);
-
-            vetData[i] = data[i];
+            printf("Digite a data desejada (sem formatacao): ");
+            scanf("%ld", &vetData[i]);
         }
 
         printf("Datas: \n");
         for(int i = 0; i<size; i++){
-            printf("%d ", vetData[i]);
+            printf("%ld ", vetData[i]);
             printf("\n");
         }
 
@@ -247,12 +202,14 @@ int main(){
     
     }else if(opcao == 3){
         clock_t timer;
-        printf("Ordenando datas");
         timer = clock();
-        //algoritmo de ordenação de matrizes
+        ordenaDatas(vetData, size);
         timer = clock() - timer;
-        //printf ordenado
+        for(int i=0; i<size; i++){
+                printf("%ld, ",vetData[i]);
+        }
         printf("Tempo para a ordenacao: %f", ((double)timer)/((CLOCKS_PER_SEC/1000)));
+
     }else if(opcao == 4){
         clock_t timer;
         printf("Ordenando Strings");
