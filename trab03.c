@@ -66,10 +66,64 @@ void quick_sort(int *a, int left, int right) {
 }
 
 
+void ordenarDatas( vetData[ 9999 ], size ) {
+  for (int i = 0; i < size; i++) {
+    char dataA[8];
+    char dataB[8];
+
+    vetData[ i ]->data[ 0 ] = dataA[ 0 ];
+    vetData[ i ]->data[ 1 ] = dataA[ 1 ];
+    vetData[ i ]->data[ 3 ] = dataA[ 3 ];
+    vetData[ i ]->data[ 4 ] = dataA[ 4 ];
+    vetData[ i ]->data[ 6 ] = dataA[ 6 ];
+    vetData[ i ]->data[ 7 ] = dataA[ 7 ];
+    vetData[ i ]->data[ 8 ] = dataA[ 8 ];
+    vetData[ i ]->data[ 9 ] = dataA[ 9 ];
+
+    int numA = strtol( dataA, NULL, 10 );
+
+    vetData[i + 1]->data[ 0 ] = dataB[ 0 ];
+    vetData[i + 1]->data[ 1 ] = dataB[ 1 ];
+    vetData[i + 1]->data[ 3 ] = dataB[ 3 ];
+    vetData[i + 1]->data[ 4 ] = dataB[ 4 ];
+    vetData[i + 1]->data[ 6 ] = dataB[ 6 ];
+    vetData[i + 1]->data[ 7 ] = dataB[ 7 ];
+    vetData[i + 1]->data[ 8 ] = dataB[ 8 ];
+    vetData[i + 1]->data[ 9 ] = dataB[ 9 ];
+
+    int numB = strtol( dataB, NULL, 10 );
+
+    char tmp[ 9999 ];
+
+    if ( numA < numB ) {  
+      tmp[ i ] = vetData[ i ];
+      vetData[ i ] = vetData[ i + 1 ];
+      vetData[ i + 1 ] = temp[ i ];
+      i = 0;
+    }
+  }
+}
+
+void ordenaStrings( vetString[9999], size ) {
+  char aux[9999];
+  int compareValue;
+
+  for ( int i = 0; i < size; i++ ) {
+    compareValue = strcmp( vetString[ i ], vetString[i + 1] );
+
+    if ( compareValue > 0 ) {      
+      strcpy( aux, vetString[ i ] );
+      strcpy( vetString[ i ], vetString[ i + 1 ] );
+      strcpy( vetString[ i + 1 ], aux );
+      i = 0;
+    }
+  }
+}
+
 
 int main(){
     
-    int opcao = -1, size, vet[9999], vetData[9999][3];
+    int opcao = -1, size, vet[9999], vetData[9999];
     char vetString[9999][15];
     printf("Gerando arquivo: \n1 - Numeros aleatorios\n2 - Inserir numeros\n3 - Inserir datas\n4 - Inserir palavras\n");
     scanf("%i", &opcao);
@@ -101,42 +155,27 @@ int main(){
 
         printf("Vetor: \n");
         for(int i = 0; i<size; i++){
-                printf("%d ", vet[i]);
-            }
+            printf("%d ", vet[i]);
+        }
         printf("\n");
         break;
     
     case 3:
         printf("Qual o tamanho do vetor que deseja? ");
         scanf("%d", &size);
-        int dia, mes, ano;
+
+        char data[10];
+
         for(int i = 0; i<size; i++){
+            printf("Digite a data desejada: ");
+            scanf("%s", &data[i]);
 
-            printf("Data %i\n", i);
-          
-            for(int j = 2; j>-1; j--){  
-                if(j==0){
-                    printf("Digite o ano: ");
-                    scanf("%d", &vetData[i][j]);
-                }
-
-                else if(j==1){
-                    printf("Digite o mes: ");
-                    scanf("%d", &vetData[i][j]);                    
-                }
-
-                else if(j==2){
-                    printf("Digite o dia: ");
-                    scanf("%d", &vetData[i][j]);                    
-                }
-            }
+            vetData[i] = data[i];
         }
 
         printf("Datas: \n");
         for(int i = 0; i<size; i++){
-            for(int j = 2; j>-1; j--){
-                printf("%d ", vetData[i][j]);
-            }
+            printf("%d ", vetData[i]);
             printf("\n");
         }
 
