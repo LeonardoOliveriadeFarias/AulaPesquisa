@@ -167,7 +167,7 @@ int main(){
         char data[10];
 
         for(int i = 0; i<size; i++){
-            printf("Digite a data desejada: ");
+            printf("Digite a data desejada (DD/MM/YYYY): ");
             scanf("%s", &data[i]);
 
             vetData[i] = data[i];
