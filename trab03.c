@@ -11,6 +11,20 @@ typedef struct {
     char palavra[30];
 } dados;
 
+void ordenaDatas(struct tm* a[], int n) {
+   int i = 0, j = 0;
+   long tmp;
+   for (i = 0; i < n; i++) {   
+       for (j = 0; j < n - i - 1; j++) {            
+            if (a[j] > a[j + 1]) {  
+               tmp = a[j];
+               a[j] = a[j + 1];
+               a[j + 1] = tmp;
+           }
+       }
+   }
+}
+
 void ordenarString(dados vet[], int size){
 
     char aux[30];
@@ -87,26 +101,12 @@ void quick_sort(int *a, int left, int right) {
     }
 }
 
-void ordenaDatas(long a[], int n) {
-   int i = 0, j = 0;
-   long tmp;
-   for (i = 0; i < n; i++) {   
-       for (j = 0; j < n - i - 1; j++) {            
-            if (a[j] > a[j + 1]) {  
-               tmp = a[j];
-               a[j] = a[j + 1];
-               a[j + 1] = tmp;
-           }
-       }
-   }
-}
-
 
 int main(){
-    
+
     dados vetString[9999];
     int opcao = -1, size, vet[9999];
-    long vetData[9999];
+    struct tm data[999];
     
     printf("Gerando arquivo: \n1 - Numeros aleatorios\n2 - Inserir numeros\n3 - Inserir datas\n4 - Inserir palavras\n");
     scanf("%i", &opcao);
@@ -148,13 +148,16 @@ int main(){
         scanf("%d", &size);
 
         for(int i = 0; i<size; i++){
-            printf("Digite a data desejada (sem formatacao): ");
-            scanf("%ld", &vetData[i]);
+            printf("Digite a data desejada: ");
+            scanf("%d", &data[i].tm_mday);
+            scanf("%d", &data[i].tm_mon);
+            scanf("%d", &data[i].tm_year);
+            
         }
 
         printf("Datas: \n");
         for(int i = 0; i<size; i++){
-            printf("%ld ", vetData[i]);
+            printf("%d %d %d", data[i].tm_mday, data[i].tm_mon, data[i].tm_year);
             printf("\n");
         }
 
@@ -227,10 +230,11 @@ int main(){
     }else if(opcao == 3){
         clock_t timer;
         timer = clock();
-        ordenaDatas(vetData, size);
+        ordenaDatas(data, size);
         timer = clock() - timer;
         for(int i=size - 1; i>-1; i--){
-                printf("%ld, ",vetData[i]);
+                printf("%d %d %d", data[i].tm_mday, data[i].tm_mon, data[i].tm_year);
+                printf("\n");
         }
         printf("Tempo para a ordenacao: %f", ((double)timer)/((CLOCKS_PER_SEC/1000)));
 
