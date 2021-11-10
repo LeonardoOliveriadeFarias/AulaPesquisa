@@ -5,6 +5,28 @@
 #include <windows.h>
 #include <string.h>
 
+
+
+typedef struct {
+    char palavra[30];
+} dados;
+
+void ordenarString(dados vet[], int size){
+
+    char aux[30];
+
+    for(int i = 1; i < size; i++){
+         for(int j = 0; j < size-1; j++){
+                       
+              if(strcmp(vet[j].palavra,vet[j+1].palavra) > 0){
+                strcpy(aux,vet[j].palavra);
+                 strcpy(vet[j].palavra,vet[j+1].palavra);
+                 strcpy(vet[j+1].palavra,aux);}                               
+           }      
+         }
+
+}
+
 void bubble_sort(int a[], int n) {
    int i = 0, j = 0, tmp;
    for (i = 0; i < n; i++) {   
@@ -66,7 +88,8 @@ void quick_sort(int *a, int left, int right) {
 }
 
 void ordenaDatas(long a[], int n) {
-   int i = 0, j = 0, tmp;
+   int i = 0, j = 0;
+   long tmp;
    for (i = 0; i < n; i++) {   
        for (j = 0; j < n - i - 1; j++) {            
             if (a[j] > a[j + 1]) {  
@@ -81,9 +104,10 @@ void ordenaDatas(long a[], int n) {
 
 int main(){
     
+    dados vetString[9999];
     int opcao = -1, size, vet[9999];
     long vetData[9999];
-    char vetString[9999][15];
+    
     printf("Gerando arquivo: \n1 - Numeros aleatorios\n2 - Inserir numeros\n3 - Inserir datas\n4 - Inserir palavras\n");
     scanf("%i", &opcao);
     switch (opcao){
@@ -141,12 +165,12 @@ int main(){
         scanf("%d", &size);
         for(int i = 0; i<size; i++){  
             printf("Digite a %i palavra: ", i);
-            scanf("%s", &vetString[i]); 
+            scanf("%s", &vetString[i].palavra); 
         }
         printf("Strings: \n");
         for(int i = 0; i<size; i++){
-                    printf("%s ", vetString[i]);
-            }
+            printf("%s ", vetString[i].palavra);
+        }
         printf("\n");
         break;
     
@@ -205,18 +229,21 @@ int main(){
         timer = clock();
         ordenaDatas(vetData, size);
         timer = clock() - timer;
-        for(int i=0; i<size; i++){
+        for(int i=size - 1; i>-1; i--){
                 printf("%ld, ",vetData[i]);
         }
         printf("Tempo para a ordenacao: %f", ((double)timer)/((CLOCKS_PER_SEC/1000)));
 
     }else if(opcao == 4){
         clock_t timer;
-        printf("Ordenando Strings");
+        printf("Ordenando Strings\n");
         timer = clock();
-        //algoritmo de ordenação de Strings
+        ordenarString(vetString, size); 
         timer = clock() - timer;
-        //printf ordenado
+        printf("Strings Ordenados: \n");
+        for(int i = 0; i<size; i++){
+            printf("%s ", vetString[i].palavra);
+        }
         printf("Tempo para a ordenacao: %f", ((double)timer)/((CLOCKS_PER_SEC/1000)));
     }
 }
